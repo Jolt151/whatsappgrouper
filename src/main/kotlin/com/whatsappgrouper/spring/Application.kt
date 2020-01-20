@@ -15,7 +15,7 @@ import javax.persistence.Entity
 @EntityScan(basePackages = ["com.whatsappgrouper.spring.model"])
 @EnableJpaRepositories(basePackages = ["com.whatsappgrouper.spring.model"])
 class Application {
-    
+
 }
 
 fun main(args: Array<String>) {
