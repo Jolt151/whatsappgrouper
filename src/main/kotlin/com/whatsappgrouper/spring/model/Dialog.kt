@@ -1,8 +1,12 @@
 package com.test.model
 
+import javax.persistence.Entity
+import javax.persistence.Id
+
+@Entity
 data class Dialog(
-    val id: String,
-    val name: String,
-    val image: String
+        @Id val id: String,
+        val name: String,
+        val image: String
     //val metadata: String?
 )
