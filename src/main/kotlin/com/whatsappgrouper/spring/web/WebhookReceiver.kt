@@ -1,8 +1,7 @@
 package com.whatsappgrouper.spring.web
 
-import com.test.api.WebhookMessagesResponse
+import com.whatsappgrouper.spring.repository.api.model.WebhookMessagesResponse
 import mu.KotlinLogging
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 

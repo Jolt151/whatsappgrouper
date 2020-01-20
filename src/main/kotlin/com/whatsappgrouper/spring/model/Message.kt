@@ -1,4 +1,4 @@
-package com.test.model
+package com.whatsappgrouper.spring.model
 
 import javax.persistence.Entity
 import javax.persistence.Id

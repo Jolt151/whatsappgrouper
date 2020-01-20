@@ -1,9 +1,9 @@
-package com.test.api
+package com.whatsappgrouper.spring.repository.api
 
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.test.model.Dialog
-import com.test.model.Message
+import com.whatsappgrouper.spring.repository.api.model.DialogsResponse
+import com.whatsappgrouper.spring.repository.api.model.MessagesResponse
+import com.whatsappgrouper.spring.repository.api.model.SentMessageResponse
 import retrofit2.Call
 import retrofit2.http.*
 

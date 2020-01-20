@@ -1,8 +1,8 @@
-package com.test.api
+package com.whatsappgrouper.spring.repository.api.model
 
-import com.test.model.Message
+import com.whatsappgrouper.spring.model.Message
 
 data class MessagesResponse(
-    val messages: List<Message>,
-    val lastMessageNumber: Int
+        val messages: List<Message>,
+        val lastMessageNumber: Int
 )

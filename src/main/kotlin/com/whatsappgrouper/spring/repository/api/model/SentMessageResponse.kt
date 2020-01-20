@@ -1,4 +1,4 @@
-package com.test.api
+package com.whatsappgrouper.spring.repository.api.model
 
 data class SentMessageResponse(
     val sent: Boolean,

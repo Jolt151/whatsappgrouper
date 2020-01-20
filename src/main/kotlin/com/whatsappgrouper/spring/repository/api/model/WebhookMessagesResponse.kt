@@ -1,6 +1,6 @@
-package com.test.api
+package com.whatsappgrouper.spring.repository.api.model
 
-import com.test.model.Message
+import com.whatsappgrouper.spring.model.Message
 
 data class WebhookMessagesResponse(
     val instanceId: String,
