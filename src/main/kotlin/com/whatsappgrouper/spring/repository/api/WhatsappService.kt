@@ -9,23 +9,29 @@ import retrofit2.http.*
 
 interface WhatsappService {
     @GET("status")
-    fun getStatus(): Call<JsonObject>
+    suspend fun getStatus(): JsonObject
 
     @GET("messages")
-    fun getMessages(@Query("lastMessageNumber") lastMessageNumber: Int? = null): Call<MessagesResponse>
+    suspend fun getMessages(@Query("lastMessageNumber") lastMessageNumber: Int? = null): MessagesResponse
+
+    @GET("messages")
+    suspend fun getMessagesForChatId(@Query("chatId") chatId: String): MessagesResponse
+
+    @GET("messages")
+    suspend fun getAllMessages(@Query("limit") limit: Int = 0): MessagesResponse
 
     @POST("sendMessage")
-    fun sendMessage(
+    suspend fun sendMessage(
         @Field("phone") phone: String,
         @Field("body") body: String
-    )
+    ): SentMessageResponse
 
     @POST("sendMessage")
     @FormUrlEncoded
-    fun sendMessageToChatId(
+    suspend fun sendMessageToChatId(
         @Field("chatId") chatId: String,
         @Field("body") body: String
-    ): Call<SentMessageResponse>
+    ): SentMessageResponse
 
     @POST("group")
     @FormUrlEncoded

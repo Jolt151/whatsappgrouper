@@ -4,5 +4,5 @@ import com.whatsappgrouper.spring.model.Message
 
 data class MessagesResponse(
         val messages: List<Message>,
-        val lastMessageNumber: Int
+        val lastMessageNumber: Int?
 )
