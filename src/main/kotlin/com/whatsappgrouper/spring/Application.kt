@@ -73,7 +73,7 @@ class Application {
             GlobalScope.launch {
                 logger.info { messageDatabase.getLatestMessageNumber() }
 
-                messageRepository.sendMessage("13473597070@c.us", "testing send message ${System.currentTimeMillis()}")
+                //messageRepository.sendMessage("13473597070@c.us", "testing send message ${System.currentTimeMillis()}")
             }
         }
     }
