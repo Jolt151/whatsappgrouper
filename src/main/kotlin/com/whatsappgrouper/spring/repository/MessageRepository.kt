@@ -32,6 +32,38 @@ class MessageRepository {
     suspend fun sendMessage(chatId: String, body: String) {
         val sentMessageResponse = whatsappService.sendMessageToChatId(chatId, body)
 
+        logger.info { "sent messageResponse: $sentMessageResponse" }
+
+        val lastMessage = messageDatabase.getLatestMessageNumber()
+        delay(1000) //necessary so we get the sent message back from the api
+        val messagesResponse = whatsappService.getMessages(lastMessageNumber = lastMessage.messageNumber)
+        logger.info { messagesResponse }
+        messageDatabase.saveAll(messagesResponse.messages)
+    }
+
+    suspend fun forwardMessage(chatId: String, messageId: String) {
+        val sentMessageResponse = whatsappService.forwardMessage(chatId, messageId)
+
+        val lastMessage = messageDatabase.getLatestMessageNumber()
+        delay(1000) //necessary so we get the sent message back from the api
+        val messagesResponse = whatsappService.getMessages(lastMessageNumber = lastMessage.messageNumber)
+        logger.info { messagesResponse }
+        messageDatabase.saveAll(messagesResponse.messages)
+    }
+
+    suspend fun sendFile(chatId: String, body: String, fileName: String, caption: String? = null) {
+        whatsappService.sendFile(chatId, body, fileName, caption)
+
+        val lastMessage = messageDatabase.getLatestMessageNumber()
+        delay(1000) //necessary so we get the sent message back from the api
+        val messagesResponse = whatsappService.getMessages(lastMessageNumber = lastMessage.messageNumber)
+        logger.info { messagesResponse }
+        messageDatabase.saveAll(messagesResponse.messages)
+    }
+
+    suspend fun sendPTT(chatId: String, audio: String) {
+        whatsappService.sendPTT(chatId, audio)
+
         val lastMessage = messageDatabase.getLatestMessageNumber()
         delay(1000) //necessary so we get the sent message back from the api
         val messagesResponse = whatsappService.getMessages(lastMessageNumber = lastMessage.messageNumber)

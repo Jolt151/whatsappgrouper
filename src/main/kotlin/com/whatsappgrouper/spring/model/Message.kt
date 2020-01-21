@@ -13,5 +13,8 @@ data class Message(
         val author: String,
         val time: Long,
         val chatId: String,
-        val messageNumber: Int?
+        val messageNumber: Int?,
+
+        val caption: String? = null,
+        val fileName: String? = null
 )

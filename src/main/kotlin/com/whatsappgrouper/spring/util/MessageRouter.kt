@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Repository
+import java.util.*
 
 @Component
 class MessageRouter {
@@ -25,16 +25,44 @@ class MessageRouter {
 
         val toChats = groupIds.filter { it != message.chatId } //List of all chats minus the one our message belongs to
 
-        val forwardingMessage = """
+        if (message.type != "chat") { //Not a chat message. Instead of downloading and sending the file, PTT, or whatever, just forward the message
+
+            val firstMessageBody = StringBuilder("""
+                wa.me/${message.author.toPhoneNumber()}
+                ~${message.senderName}
+                ${message.type.messageTypeToReadable()}
+            """.trimIndent())
+
+            message.caption?.let { caption ->
+                firstMessageBody.append("""
+                    
+                    Caption:
+                    $caption
+                """.trimIndent())
+            } ?: firstMessageBody.append(": ")
+
+            toChats.forEach { chatId ->
+                messageRepository.sendMessage(chatId, firstMessageBody.toString())
+
+                when (message.type) {
+                    //"document" -> messageRepository.sendFile(chatId, message.body, UUID.randomUUID().toString(), message.caption)
+                    "ptt" -> messageRepository.sendPTT(chatId, message.body)
+                    else -> messageRepository.forwardMessage(chatId, message.id)
+                }
+            }
+        } else {
+            //send chat message
+            val forwardingMessage = """
                                 wa.me/${message.author.toPhoneNumber()}
                                 ~${message.senderName}
                                 
                                 ${message.body}
                             """.trimIndent()
 
-        toChats.forEach { chatId ->
-            GlobalScope.launch {
-                messageRepository.sendMessage(chatId, forwardingMessage)
+            toChats.forEach { chatId ->
+                GlobalScope.launch {
+                    messageRepository.sendMessage(chatId, forwardingMessage)
+                }
             }
         }
     }

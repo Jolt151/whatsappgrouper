@@ -34,6 +34,23 @@ interface WhatsappService {
         @Field("body") body: String
     ): SentMessageResponse
 
+    @POST("forwardMessage")
+    @FormUrlEncoded
+    suspend fun forwardMessage(@Field("chatId") chatId: String,
+                               @Field("messageId") messageId: String): SentMessageResponse
+
+    @POST("sendFile")
+    @FormUrlEncoded
+    suspend fun sendFile(@Field("chatId") chatId: String,
+                         @Field("body") body: String,
+                         @Field("fileName") fileName: String,
+                         @Field("caption") caption: String? = null): SentMessageResponse
+
+    @POST("sendPTT")
+    @FormUrlEncoded
+    suspend fun sendPTT(@Field("chatId") chatId: String,
+                        @Field("audio") audio: String): SentMessageResponse
+
     @POST("group")
     @FormUrlEncoded
     fun createGroup(
