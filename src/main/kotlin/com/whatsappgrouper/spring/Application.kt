@@ -68,13 +68,12 @@ class Application {
     }
 
     @Bean
-    fun runner(whatsappService: WhatsappService, messageDatabase: MessageDatabase) = CommandLineRunner {
+    fun runner(whatsappService: WhatsappService, messageDatabase: MessageDatabase, messageRepository: MessageRepository) = CommandLineRunner {
         runBlocking {
             GlobalScope.launch {
-                val messages = whatsappService.getMessages()
-                logger.info { messages }
-                messageDatabase.saveAll(messages.messages)
-                logger.info { messageDatabase.findAll() }
+                logger.info { messageDatabase.getLatestMessageNumber() }
+
+                messageRepository.sendMessage("13473597070@c.us", "testing send message ${System.currentTimeMillis()}")
             }
         }
     }

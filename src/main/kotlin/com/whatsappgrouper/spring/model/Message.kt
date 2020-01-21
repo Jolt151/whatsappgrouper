@@ -13,5 +13,5 @@ data class Message(
         val author: String,
         val time: Long,
         val chatId: String,
-        val messageNumber: Int
+        val messageNumber: Int?
 )
