@@ -27,6 +27,10 @@ class MessageRepository {
         messageDatabase.saveAll(messages)
     }
 
+    suspend fun getAll() {
+        val allMessages = whatsappService.getAllMessages()
+        messageDatabase.saveAll(allMessages.messages)
+    }
 
 
     suspend fun sendMessage(chatId: String, body: String) {
