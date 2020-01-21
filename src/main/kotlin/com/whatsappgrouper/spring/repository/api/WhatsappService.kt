@@ -12,7 +12,8 @@ interface WhatsappService {
     suspend fun getStatus(): JsonObject
 
     @GET("messages")
-    suspend fun getMessages(@Query("lastMessageNumber") lastMessageNumber: Int? = null): MessagesResponse
+    suspend fun getMessages(@Query("lastMessageNumber") lastMessageNumber: Int? = null,
+                            @Query("limit") limit: Int = 0): MessagesResponse
 
     @GET("messages")
     suspend fun getMessagesForChatId(@Query("chatId") chatId: String): MessagesResponse
